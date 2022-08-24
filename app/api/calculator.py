@@ -19,7 +19,7 @@ def get_expressions(user_id: int):
     """
     유저의 계산 수식 목록을 전달
     :param user_id: int
-    :return: dict
+    :return: json
     """
     if user_id not in calculator_db:
         raise HTTPException(status_code=400, detail="계산기를 사용한 이력이 없습니다.")
@@ -35,7 +35,7 @@ def get_result(user_id: int):
     3. operator로 끝나는 계산식은 에러 발생
     4. ZeroDivisionError 처리
     :param user_id: int
-    :return: dict
+    :return: json
     """
     result = ""
     if user_id in calculator_db:
@@ -61,8 +61,8 @@ def create_expression(calculator: Calculator):
     2. 첫 입력이 operator - 올바른 계산식이 아님
     3. 연산자를 연달아 입력하면, 마지막으로 입력한 연산자로 변경
     4. +/- 버튼 입력 - 부호 변경
-    :param calculator: JSON
-    :return: dict
+    :param calculator: json
+    :return: json
     """
     if calculator.button == "C":
         calculator_db[calculator.id] = mock_db_init(calculator_db, calculator.id)
@@ -73,9 +73,7 @@ def create_expression(calculator: Calculator):
                 calculator_db[calculator.id]["expression"][-1] = calculator.button
             elif len(calculator_db[calculator.id]["expression"]) == 0 and is_operator(calculator.button):
                 # 첫 입력이 operator - 올바른 계산식이 아님
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST, detail="올바른 수식이 아닙니다."
-                )
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="올바른 수식이 아닙니다.")
             else:
                 # 부호 변경을 입력받았을 때, 숫자만 부호 변경
                 if calculator.button == "sign":
