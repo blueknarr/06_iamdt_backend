@@ -1,10 +1,39 @@
 from app.schemas.calculator import Calculator
 from fastapi import APIRouter, HTTPException, status
 
-from app.utils.calculator_utils import is_operator, change_sign
+from app.utils.calculator_utils import (
+    is_operator,
+    change_sign,
+    get_expression_result
+)
 
 router = APIRouter()
 calculator_db: dict = {}
+
+
+@router.get("/{user_id}/result", status_code=status.HTTP_200_OK)
+def get_result(user_id: int):
+    """
+    계산 결과를 전송
+    1. 올바른 계산식이면, 계산식과 결과값을 전송
+    2. mock db에 없는 유저는 ""를 전송
+    3. operator로 끝나는 계산식은 에러 발생
+    4. ZeroDivisionError 처리
+    """
+    result = ""
+    if user_id in calculator_db:
+        # 수식이 완성 되었을 때에만 결과 내야함
+        if len(calculator_db[user_id]["expression"]) == 0:
+            result = ""
+        elif len(calculator_db[user_id]["expression"]) > 0 and is_operator(calculator_db[user_id]["expression"][-1]):
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="올바른 수식이 아닙니다.")
+        else:
+            try:
+                res = get_expression_result(calculator_db, user_id)
+                result = f'계산 결과: {res}'
+            except ZeroDivisionError:
+                raise HTTPException(status_code=400, detail="0으로 나눌 수 없습니다.")
+    return result
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
