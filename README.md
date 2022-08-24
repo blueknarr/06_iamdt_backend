@@ -59,21 +59,63 @@ FastAPI 프레임워크를 이용한 계산기 API 서버 구현
     - 계산식을 만들지 않은 유저가 수식 목록을 요청한 경우
 
 <br>
-<br>
 
 ### DB
 
 - Dictionary type의 Mocking DB 생성
 
   ```json
-  {
-      'user_id':{
-          'expression': ['1', '+', '2', '*', '1.0'],  
-          'history': [],
-          'sign': 'False'
-      }...
-  }
+    {
+      "user_id":{
+            "expression": ["1", "+", "2", "*", "1.0"],  
+            "history": [],
+            "sign": "False"
+        }
+    }
   ```
+
+<br>
+<br>
+
+  ### 실행 방법
+
+```python
+git clone https://github.com/blueknarr/iamdt_backend.git
+
+# 폴더 변경
+cd iamdt_backend\
+
+# 패키지 설치
+pip install -r requirements.txt
+
+# app 실행
+uvicorn app.main:app --reload
+    
+```
+
+<br>
+
+  - 계산기 UI에서 숫자 또는 기호 입력 받아 계산식 만들기
+      - "id": 숫자 입력
+          - 예) "id": 0
+
+<img src="https://user-images.githubusercontent.com/44389424/186443883-f4a5ac9d-94c8-46d0-8f7d-03b37b50fb61.JPG"/>
+
+<br>
+
+  - 계산식에 대한 결과 받기
+      - user_id에 "id" 입력
+          - 예) 0
+
+<img src="https://user-images.githubusercontent.com/44389424/186443908-d1b44f44-1177-4dcb-a9dc-8f2beba00a00.JPG" />
+
+<br>
+
+  - 계산 목록 조회
+      - user_id에 "id" 입력
+          - 예) 0
+
+<img src="https://user-images.githubusercontent.com/44389424/186443923-c5807988-5518-42f0-a8ea-eb47c8ca1261.JPG"/>
 
 <br>
 <br>
