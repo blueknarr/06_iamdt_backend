@@ -1,5 +1,21 @@
 from typing import Union
 
+
+def mock_db_init(cal_db: dict, user_id: int) -> dict:
+    """
+    db 초기화
+    :param cal_db: dict
+    :param user_id: int
+    :return: dict
+    """
+    cal_db[user_id] = {
+        "expression": [],
+        "history": [],
+        "sign": False,
+    }
+    return cal_db[user_id]
+
+
 def is_operator(button: str) -> bool:
     """
     버튼의 입력값이 operator인지 판별
@@ -113,15 +129,15 @@ def get_expression_result(cal_db: dict, user_id: int) -> str:
     :param user_id: int
     :return: str
     """
-    postfix = infix_to_postfix(cal_db[user_id]['expression'])
+    postfix = infix_to_postfix(cal_db[user_id]["expression"])
     result = calculate(postfix)
 
-    cal_db[user_id]['expression'].append('=')
-    cal_db[user_id]['expression'].append(str(float_to_int(result)))
+    cal_db[user_id]["expression"].append('=')
+    cal_db[user_id]["expression"].append(str(float_to_int(result)))
 
-    expression = " ".join(cal_db[user_id]['expression'])
-
-    cal_db[user_id]['history'].append(expression)
-    cal_db[user_id]['expression'] = []
+    expression = " ".join(cal_db[user_id]["expression"])
+    print(cal_db[user_id]["history"])
+    cal_db[user_id]["history"].append(expression)
+    cal_db[user_id]["expression"] = []
 
     return expression
