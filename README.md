@@ -106,6 +106,8 @@ uvicorn app.main:app --reload
   - 계산식에 대한 결과 받기
       - user_id에 "id" 입력
           - 예) 0
+      - button에 수식 입력
+          - 예) 1, 2, 3 ..., +, -, *, /, %, C, =
 
 <img src="https://user-images.githubusercontent.com/44389424/186443908-d1b44f44-1177-4dcb-a9dc-8f2beba00a00.JPG" />
 
