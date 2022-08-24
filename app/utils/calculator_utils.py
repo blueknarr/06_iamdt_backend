@@ -136,7 +136,7 @@ def get_expression_result(cal_db: dict, user_id: int) -> str:
     cal_db[user_id]["expression"].append(str(float_to_int(result)))
 
     expression = " ".join(cal_db[user_id]["expression"])
-    print(cal_db[user_id]["history"])
+
     cal_db[user_id]["history"].append(expression)
     cal_db[user_id]["expression"] = []
 
