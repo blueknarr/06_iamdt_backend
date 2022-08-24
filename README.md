@@ -57,6 +57,7 @@ FastAPI 프레임워크를 이용한 계산기 API 서버 구현
     - 올바른 수식이 완성되고, `=`버튼을 누른 경우 (부호 버튼 입력)
     - 계산식을 만든 유저가 수식 목록을 요청한 경우
     - 계산식을 만들지 않은 유저가 수식 목록을 요청한 경우
+
 <br>
 
 ### DB
@@ -72,6 +73,8 @@ FastAPI 프레임워크를 이용한 계산기 API 서버 구현
         }
     }
   ```
+
+<br>
 <br>
 
   ### 실행 방법
@@ -79,6 +82,14 @@ FastAPI 프레임워크를 이용한 계산기 API 서버 구현
 ```python
 git clone https://github.com/blueknarr/iamdt_backend.git
 
+# 폴더 변경
+cd iamdt_backend\
+
+# 패키지 설치
+pip install -r requirements.txt
+
+# app 실행
+uvicorn app.main:app --reload
     
 ```
 
@@ -105,7 +116,6 @@ git clone https://github.com/blueknarr/iamdt_backend.git
           - 예) 0
 
 <img src="https://user-images.githubusercontent.com/44389424/186443923-c5807988-5518-42f0-a8ea-eb47c8ca1261.JPG"/>
-
 
 <br>
 <br>
