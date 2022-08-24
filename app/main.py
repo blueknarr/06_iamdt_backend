@@ -1,19 +1,18 @@
 import uvicorn
+
+from app.api import calculator
 from fastapi import FastAPI
 
 
 def create_app():
     app = FastAPI()
 
+    app.include_router(calculator.router, tags=["calculator"], prefix="/api/v1/calculator")
+
     return app
 
 
 app = create_app()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
 
 
 if __name__ == "__main__":
