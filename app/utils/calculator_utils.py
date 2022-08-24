@@ -39,6 +39,17 @@ def str_to_num(button: str) -> Union[int, float]:
     return int(button)
 
 
+def float_to_int(num: float) -> Union[int, float]:
+    """
+    연산 결과가 정수일 때
+    :param num: float
+    :return: int or float
+    """
+    if float(num).is_integer():
+        return int(num)
+    return num
+
+
 def infix_to_postfix(tokens: list) -> list:
     """
     중위 표현식을 후위 표현식으로 변환
@@ -91,3 +102,26 @@ def calculate(tokens: list) -> Union[int, float]:
         else:
             stack.append(str_to_num(token))
     return stack.pop()
+
+
+def get_expression_result(cal_db: dict, user_id: int) -> str:
+    """
+    1. 중위표현식 -> 후위표현식으로 변환
+    2. 후위표현식 계산
+    3. 계산식과 결과 생성
+    :param cal_db: dict[List, List]
+    :param user_id: int
+    :return: str
+    """
+    postfix = infix_to_postfix(cal_db[user_id]['expression'])
+    result = calculate(postfix)
+
+    cal_db[user_id]['expression'].append('=')
+    cal_db[user_id]['expression'].append(str(float_to_int(result)))
+
+    expression = " ".join(cal_db[user_id]['expression'])
+
+    cal_db[user_id]['history'].append(expression)
+    cal_db[user_id]['expression'] = []
+
+    return expression
